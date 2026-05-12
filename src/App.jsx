@@ -8,6 +8,7 @@ import { useCalendarSelection } from './hooks/useCalendarSelection';
 import { getDaysInMonthGrid } from './utils/calendarUtils';
 import { calculateMonthlyStats, getTrendIndicator } from './utils/statsUtils';
 import { getBookingsInRange } from './utils/occupancyUtils';
+import { normalizeDateRange } from './utils/selectionUtils';
 
 function App() {
   const [viewDate, setViewDate] = useState(new Date(2026, 1, 1)); 
@@ -42,10 +43,10 @@ function App() {
   const trend = useMemo(() => getTrendIndicator(monthlyStats, prevMonthStats), [monthlyStats, prevMonthStats]);
 
   // Derived state: Bookings overlapping selection
-  const selectedBookings = useMemo(() => 
-    getBookingsInRange(bookings, selection.selectionStart, selection.selectionEnd),
-    [bookings, selection.selectionStart, selection.selectionEnd]
-  );
+  const selectedBookings = useMemo(() => {
+    const { start, end } = normalizeDateRange(selection.selectionStart, selection.selectionEnd);
+    return getBookingsInRange(bookings, start, end);
+  }, [bookings, selection.selectionStart, selection.selectionEnd]);
 
   const handlePrevMonth = () => setViewDate(new Date(viewDate.getFullYear(), viewDate.getMonth() - 1, 1));
   const handleNextMonth = () => setViewDate(new Date(viewDate.getFullYear(), viewDate.getMonth() + 1, 1));

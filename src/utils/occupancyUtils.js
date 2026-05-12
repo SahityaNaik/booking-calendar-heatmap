@@ -1,5 +1,3 @@
-import { normalizeDateRange } from './selectionUtils.js';
-
 export function getDailyOccupancy(bookings, targetDate) {
   if (!bookings || bookings.length === 0) return 0;
   

@@ -1,3 +1,5 @@
+import { normalizeDateRange } from '../utils/selectionUtils';
+
 /**
  * BookingDetails Component
  * Displays a list of bookings overlapping the selected date range.
@@ -8,7 +10,7 @@ const BookingDetails = ({ selectedRange, bookings }) => {
       <div className="bg-[#0f172a] border border-slate-800 rounded-xl p-8 text-center h-full flex flex-col justify-center items-center">
         <div className="w-16 h-16 bg-slate-800/50 rounded-full flex items-center justify-center mb-4">
           <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2-2v12a2 2 0 002 2z" />
           </svg>
         </div>
         <h4 className="text-slate-300 font-bold">No selection</h4>
@@ -19,8 +21,9 @@ const BookingDetails = ({ selectedRange, bookings }) => {
     );
   }
 
-  const startDate = selectedRange.start.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-  const endDate = selectedRange.end ? selectedRange.end.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : startDate;
+  const { start, end } = normalizeDateRange(selectedRange.start, selectedRange.end);
+  const startDate = start.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  const endDate = end.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
   const isSingleDay = !selectedRange.end || startDate === endDate;
 
   return (
