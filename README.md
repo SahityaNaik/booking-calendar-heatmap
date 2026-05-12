@@ -1,16 +1,38 @@
-# React + Vite
+# Booking Calendar Heatmap Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React-based dashboard for hotel occupancy visualization and booking management.
 
-Currently, two official plugins are available:
+## Project Overview
+This application provides a 42-day calendar grid that visualizes room occupancy through a heatmap. It includes interactive date range selection and a detailed summary of guest stays for selected periods.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Getting Started
 
-## React Compiler
+### Prerequisites
+- Node.js (v18 or higher recommended)
+- npm or yarn
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Installation
+1. Clone the repository
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-## Expanding the ESLint configuration
+### Running Locally
+To start the development server:
+```bash
+npm run dev
+```
+The application will be available at `http://localhost:5173`.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Functional Features
+- **Occupancy Heatmap:** A dynamic grid displaying occupancy levels across a 42-day period.
+- **Drag-to-Select:** Interactive selection of date ranges using mouse events (`onMouseDown`, `onMouseEnter`, `onMouseUp`).
+- **Stay Details:** A dedicated panel that lists all bookings overlapping with the selected date range.
+- **Data Integration:** Real-time calculation of occupancy and metrics from a JSON-based booking dataset.
+
+## Tech Stack
+- **Frontend Framework:** React (Vite)
+- **Styling:** Tailwind CSS
+- **State Management:** React Hooks (Reducer, Memo, State)
+- **Data Source:** Local JSON
