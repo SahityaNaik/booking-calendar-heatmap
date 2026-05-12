@@ -50,3 +50,27 @@ export function getOverlappingBookings(bookings, selectionStart, selectionEnd) {
     return checkInTime <= rangeEndTime && checkOutTime > rangeStartTime;
   });
 }
+/**
+ * Finds all bookings that overlap with a specific date range.
+ */
+export function getBookingsInRange(bookings, startDate, endDate) {
+  if (!startDate || !endDate) return [];
+  
+  const start = new Date(startDate);
+  const end = new Date(endDate);
+  
+  // Normalize time to midnight for comparison
+  start.setHours(0, 0, 0, 0);
+  end.setHours(0, 0, 0, 0);
+
+  return bookings.filter(booking => {
+    if (booking.status === 'cancelled') return false;
+    
+    const bStart = new Date(booking.checkIn);
+    const bEnd = new Date(booking.checkOut);
+    bStart.setHours(0, 0, 0, 0);
+    bEnd.setHours(0, 0, 0, 0);
+
+    return bStart <= end && bEnd > start;
+  });
+}

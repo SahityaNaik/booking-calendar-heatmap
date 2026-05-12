@@ -47,7 +47,7 @@ const CalendarCell = ({
       onMouseEnter={() => onMouseEnter(date)}
       onMouseUp={onMouseUp}
       className={`
-        relative h-20 border-r border-b border-slate-700/50 p-2 transition-all cursor-pointer select-none
+        relative h-20 border-r border-b border-slate-700/50 p-2 cursor-pointer select-none
         ${heatmapClass}
         ${isSelected ? 'ring-2 ring-indigo-400 ring-inset z-10' : ''}
         ${isSelectionStart ? 'rounded-l-sm' : ''}
