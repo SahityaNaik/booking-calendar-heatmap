@@ -18,6 +18,7 @@ const CalendarGrid = ({
     <div 
       className="bg-slate-900 border-l border-t border-slate-700/50 shadow-2xl rounded-lg overflow-hidden"
       onMouseLeave={onMouseUp}
+      onMouseUp={onMouseUp}
     >
       {/* Day Headers */}
       <div className="grid grid-cols-7 bg-slate-800/50 border-b border-slate-800">
@@ -29,10 +30,7 @@ const CalendarGrid = ({
       </div>
 
       {/* Grid Cells */}
-      <div 
-        className="grid grid-cols-7"
-        onMouseUp={onMouseUp}
-      >
+      <div className="grid grid-cols-7">
         {days.map((day, index) => {
           const occupancy = getDailyOccupancy(bookings, day.date);
           const isSelected = isDateInRange(day.date, selection.selectionStart, selection.selectionEnd);
@@ -48,6 +46,7 @@ const CalendarGrid = ({
               isSelectionEnd={isSameDay(day.date, selection.selectionEnd)}
               onMouseDown={onMouseDown}
               onMouseEnter={onMouseEnter}
+              onMouseUp={onMouseUp}
             />
           );
         })}

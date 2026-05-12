@@ -10,7 +10,8 @@ const CalendarCell = ({
   isSelectionStart,
   isSelectionEnd,
   onMouseDown, 
-  onMouseEnter 
+  onMouseEnter,
+  onMouseUp
 }) => {
   const { date, isCurrentMonth } = day;
   
@@ -39,8 +40,12 @@ const CalendarCell = ({
 
   return (
     <div
-      onMouseDown={() => onMouseDown(date)}
+      onMouseDown={(e) => {
+        e.preventDefault(); // Prevent text selection while dragging
+        onMouseDown(date);
+      }}
       onMouseEnter={() => onMouseEnter(date)}
+      onMouseUp={onMouseUp}
       className={`
         relative h-20 border-r border-b border-slate-700/50 p-2 transition-all cursor-pointer select-none
         ${heatmapClass}
