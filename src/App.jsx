@@ -11,8 +11,15 @@ import { getBookingsInRange } from './utils/occupancyUtils';
 
 function App() {
   const [viewDate, setViewDate] = useState(new Date(2026, 1, 1)); 
-  const { bookings, loading, error } = useBookings();
+  const [filterStatus, setFilterStatus] = useState('all');
+  const { bookings: rawBookings, loading, error } = useBookings();
   const selection = useCalendarSelection();
+
+  // Top-down filtering logic
+  const bookings = useMemo(() => {
+    if (filterStatus === 'all') return rawBookings;
+    return rawBookings.filter(b => b.status === filterStatus);
+  }, [rawBookings, filterStatus]);
 
   // Derived state: Grid cells
   const calendarGrid = useMemo(() => 
@@ -84,7 +91,12 @@ function App() {
             </div>
           ) : (
             <>
-              <StatsHeader stats={monthlyStats} trend={trend} />
+              <StatsHeader 
+                stats={monthlyStats} 
+                trend={trend} 
+                currentFilter={filterStatus}
+                onFilterChange={setFilterStatus}
+              />
               
               <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
                 {/* Main Calendar View */}
